@@ -56,8 +56,11 @@ button:hover {
 }
 
 .list > div > button {
-  margin-left: auto;
   font-size: 14px;
+}
+
+.list > div > button.edit {
+  margin-left: auto;
 }
 
 @keyframes fade-in {

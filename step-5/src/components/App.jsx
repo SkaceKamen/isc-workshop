@@ -2,37 +2,55 @@ import React from 'react'
 import { Task } from './Task'
 
 export const App = () => {
-	const [task, setTask] = React.useState('')
-	const [tasks, setTasks] = React.useState([])
+	const [input, setInput] = React.useState('Hello world')
+	const [tasks, setTasks] = React.useState([{ id: 1, text: 'Task 1' }])
 
-	const handleInput = e => {
-		setTask(e.target.value)
+	function handleChange(e) {
+		setInput(e.target.value)
 	}
 
-	const handleAddTask = () => {
-		if (task) {
-			setTasks([...tasks, task])
-			setTask('')
-		}
+	function handleAdd() {
+		setTasks([
+			{ id: Math.max(...tasks.map(t => t.id)) + 1, text: input },
+			...tasks
+		])
 	}
 
-	const handleRemoveTask = index => {
-		setTasks(tasks.filter((t, i) => i !== index))
+	function handleRemove(id) {
+		setTasks(
+			tasks.filter(function(task) {
+				return task.id !== id
+			})
+		)
+	}
+
+	function handleSave(id, text) {
+		setTasks(
+			tasks.map(function(task) {
+				if (task.id === id) {
+					return { id: id, text: text }
+				}
+				return task
+			})
+		)
 	}
 
 	return (
-		<div className="app">
-			<input type="text" onChange={handleInput} value={task} />
-			<button onClick={handleAddTask}>Add task</button>
+		<div>
+			<input type="text" onChange={handleChange} value={input} />
+			<button onClick={handleAdd}>Add task</button>
 			<div className="list">
-				{tasks.map((task, index) => (
-					<Task
-						key={index}
-						index={index}
-						task={task}
-						onRemove={handleRemoveTask}
-					/>
-				))}
+				{tasks.map(function(task) {
+					return (
+						<Task
+							task={task.text}
+							id={task.id}
+							key={task.id}
+							onSave={handleSave}
+							onRemove={handleRemove}
+						/>
+					)
+				})}
 			</div>
 		</div>
 	)
