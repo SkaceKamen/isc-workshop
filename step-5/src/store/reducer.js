@@ -1,11 +1,21 @@
 const todos = (
 	state = {
-		items: []
+		items: [],
+		user: null,
+		selectedItem: null
 	},
 	action
 ) => {
 	switch (action.type) {
-		// TODO
+		case 'ADD_TODO': {
+			return {
+				...state,
+				items: [
+					...state.items,
+					{ id: Math.max(...tasks.map(t => t.id)) + 1, text: action.text }
+				]
+			}
+		}
 		default:
 			return state
 	}

@@ -1,19 +1,22 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Task } from './Task'
+import { addTask } from '../store/actions'
 
 export const App = () => {
+	const dispatch = useDispatch()
+	const tasks = useSelector(function(state) {
+		return state.items
+	})
+
 	const [input, setInput] = React.useState('Hello world')
-	const [tasks, setTasks] = React.useState([{ id: 1, text: 'Task 1' }])
 
 	function handleChange(e) {
 		setInput(e.target.value)
 	}
 
 	function handleAdd() {
-		setTasks([
-			{ id: Math.max(...tasks.map(t => t.id)) + 1, text: input },
-			...tasks
-		])
+		dispatch(addTask(input))
 	}
 
 	function handleRemove(id) {
