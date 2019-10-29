@@ -12,7 +12,7 @@ const todos = (
 				...state,
 				items: [
 					...state.items,
-					{ id: Math.max(...tasks.map(t => t.id)) + 1, text: action.text }
+					{ id: Math.max(...state.items.map(t => t.id)) + 1, text: action.text }
 				]
 			}
 		}
