@@ -9,13 +9,16 @@ export function Task({ task, id, onRemove, onSave }) {
 	}
 
 	function handleSave() {
-		onSave(id, input)
 		setEditing(false)
 	}
 
 	function handleEdit() {
 		setInput(task)
 		setEditing(true)
+	}
+
+	function handleRemove() {
+		onRemove(id)
 	}
 
 	return (
@@ -25,7 +28,7 @@ export function Task({ task, id, onRemove, onSave }) {
 			<button className="edit" onClick={editing ? handleSave : handleEdit}>
 				{editing ? 'Save' : 'Edit'}
 			</button>
-			<button className="delete" onClick={() => onRemove(id)}>
+			<button className="delete" onClick={handleRemove}>
 				Remove
 			</button>
 		</div>

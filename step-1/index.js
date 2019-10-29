@@ -19,4 +19,4 @@ class MyApp {
 
 // Start the application when the window is loaded
 const app = new MyApp()
-window.addEventListener('load', app.onReady, false)
+window.addEventListener('load', () => app.onReady(), false)
